@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astra Bot</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Astra-Bot</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <div id="chatBox"></div>
 
-        <div class="inputRow">
-            <input id="userMessage" placeholder="Type your message...">
+    <div class="chat-container">
+
+        <div class="header">
+            <img src="assets/AI-avatar.png" class="bot-avatar" />
+            <h1>Astra-Bot</h1>
+        </div>
+
+        <div id="chat" class="chat-box"></div>
+
+        <div class="input-area">
+            <input id="userInput" type="text" placeholder="Say something..." />
             <button id="sendBtn">Send</button>
         </div>
+
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
