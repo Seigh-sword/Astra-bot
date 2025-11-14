@@ -11,13 +11,13 @@ async function askAstraBot(message) {
     return data.choices[0].message.content;
 }
 
-// UI hookup
 function addMessage(role, text) {
     const chat = document.getElementById("chat");
     const div = document.createElement("div");
     div.className = role;
     div.textContent = text;
     chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
 }
 
 document.getElementById("sendBtn").addEventListener("click", async () => {
