@@ -1,30 +1,33 @@
-const sendBtn = document.getElementById("sendBtn");
-const userMessage = document.getElementById("userMessage");
-const chatBox = document.getElementById("chatBox");
+async function askAstraBot(message) {
+    const response = await fetch("https://weathered-base-1532.seigh-sword.workers.dev/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ userMessage: message })
+    });
 
-function addMessage(sender, text) {
-    const msgDiv = document.createElement("div");
-    msgDiv.classList.add("message");
-    msgDiv.innerHTML = "<strong>" + sender + ":</strong> " + text;
-    chatBox.appendChild(msgDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
+    const data = await response.json();
+    return data.choices[0].message.content;
 }
 
-async function getAstraResponse(message) {
-    return "Astra-Bot: " + message.split("").reverse().join("");
+// UI hookup
+function addMessage(role, text) {
+    const chat = document.getElementById("chat");
+    const div = document.createElement("div");
+    div.className = role;
+    div.textContent = text;
+    chat.appendChild(div);
 }
 
-sendBtn.addEventListener("click", async () => {
-    const msg = userMessage.value;
-    if (!msg) return;
+document.getElementById("sendBtn").addEventListener("click", async () => {
+    const input = document.getElementById("userInput").value;
+    if (!input.trim()) return;
 
-    addMessage("You", msg);
-    userMessage.value = "";
+    addMessage("user", input);
 
-    const response = await getAstraResponse(msg);
-    addMessage("Astra-Bot", response);
-});
+    const reply = await askAstraBot(input);
+    addMessage("bot", reply);
 
-userMessage.addEventListener("keypress", function(e) {
-    if (e.key === "Enter") sendBtn.click();
+    document.getElementById("userInput").value = "";
 });
